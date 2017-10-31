@@ -1,30 +1,36 @@
 version: '3'
 services:
-  frontend:
-    build: ./client
-    expose:
-      - "80"
-    ports:
-      - "80:80"
+  db:
+    # TODO: In the first init the database is not created and the backend service will fail to apply the migration. Running a second time when the database is already created will solve it. Find a way to fix this and not rely in a second run
+    image: postgres:latest
     volumes:
-      - ./client/dist:/var/www
-    depends_on:
-      - backend
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=couplegoals
   backend:
     build: ./server
-    command: npm start
-    expose:
-      - "80"
-    # ports:
-    #   - "80:80"
-    volumes:
-      - ./server:/usr/app
+    command: npm run start:dev
     environment:
       - DATABASE_URL=postgres://postgres@db:5432/couplegoals
-      - PORT=80
+      - DATABASE_HOST=db
+      - DATABASE_NAME=couplegoals
+      - PORT=3000
     depends_on:
       - db
-  db:
-    image: postgres:latest
-    # ports:
-    #   - "5432:5432"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/code
+  # frontend:
+  #   build: ./client
+  #   expose:
+  #     - "80"
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - ./client/dist:/var/www
+  #   environment:
+  #     - BACKEND_URL=http://localhost:3000
+  #   depends_on:
+  #     - backend
+  

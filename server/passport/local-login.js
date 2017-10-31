@@ -9,7 +9,9 @@ module.exports = new PassportLocalStrategy({
   session: false,
   passReqToCallback: true
 }, async (req, email, password, done) => {
+
   const u = await User.withEmail(email.trim().toLowerCase())
+  
   if(u){
     const equalPasswords = u.comparePassword(password.trim())
     if(equalPasswords){
@@ -25,7 +27,9 @@ module.exports = new PassportLocalStrategy({
       return done(null, token, data);
     }
   }
-  const error = new Error();
-  error.password = 'Invalid email or password'
-  return done(error);
+  const errors = {}
+  errors.summary = 'Invalid credentials'
+  errors.email = ''
+  errors.password = ''
+  return done(errors);
 });

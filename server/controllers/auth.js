@@ -81,9 +81,19 @@ router.route('/register')
 router.route('/login')
   .post(async (req, res, next) => {
     // const validationResult = await validateLoginForm(req.body)
-    
+    if(!req.body.email || !req.body.password){
+      const errors = {}
+      errors.summary = ''
+      errors.email = req.body.email ? '' : 'No email provided'
+      errors.password = req.body.password ? '' : 'No password provided'
+      return res.status(401).json({
+        success: false,
+        errors,
+      });
+    }
     return passport.authenticate('local-login', (err, token, userData) => {
       if (err) {
+        console.log(err)
         return res.status(401).json({
           success: false,
           errors: err

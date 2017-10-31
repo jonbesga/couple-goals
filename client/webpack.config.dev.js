@@ -11,7 +11,8 @@ module.exports = {
     publicPath: '/'
   },
   devServer: {
-    contentBase: './public'
+    historyApiFallback: true,
+    contentBase: './dist'
   },
   module: {
     rules: [
@@ -22,7 +23,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.template.html',
+      template: './public/index.html',
       inject: 'body',
     })
   ],

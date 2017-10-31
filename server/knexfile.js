@@ -1,9 +1,12 @@
+const config = require('./config/config')
+
 module.exports = {
 
   development: {
     client: 'postgresql',
     connection: {
-      database: 'couplegoals',
+      host: config.DATABASE_HOST,
+      database: config.DATABASE_NAME,
       user: 'postgres',
       password: 'postgres'
     },

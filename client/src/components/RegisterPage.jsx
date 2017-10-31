@@ -39,7 +39,7 @@ class RegisterForm extends Component{
     event.preventDefault();
 
     const self = this;
-    axios.post('/auth/register', {
+    axios.post('http://localhost:3000/auth/register', {
       name: this.state.user.name,
       email: this.state.user.email,
       password: this.state.user.password

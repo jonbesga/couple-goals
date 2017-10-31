@@ -4,7 +4,7 @@
   "main": "server.js",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "node server.js",
+    "start": "knex migrate:latest && node server.js",
     "start:dev": "nodemon server.js"
   },
   "dependencies": {

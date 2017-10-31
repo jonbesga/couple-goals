@@ -8,20 +8,10 @@ body {
   overflow-x: hidden;
 }
 
-.container {
-  margin: 5px;
-}
-
-.title {
+.title{
   text-align: center;
 }
-
-.row {
+.button{
   text-align: center;
-  width: 100%;
-  margin: 20px 0;
-}
-
-.button {
-  display: block;
+  margin: 10px 0;
 }
